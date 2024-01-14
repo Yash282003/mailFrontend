@@ -3,7 +3,7 @@ import axios from "axios";
 
 const MyForm = () => {
   const [formData, setFormData] = useState({
-    email: "",
+    userEmail: "",
   });
 
   const handleInputChange = (e) => {
@@ -16,16 +16,34 @@ const MyForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData)
+    console.log(formData.userEmail)
+    alert("You should receive an email with the OTP...");
     try {
       const response = await axios.post("http://localhost:8000/Gmail", {
-        email: formData.email,
+        userEmail: formData.userEmail,
       });
 
       console.log(response.data.msg);
     } catch (error) {
       console.error("Error sending OTP:", error.message);
     }
+
+    // try {
+    //   const response = await fetch("http://localhost:8000/Gmail", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       userEmail: formData.userEmail,
+    //     }),
+    //   });
+
+    //   const data = await response.json();
+    //   console.log(data.msg);
+    // } catch (error) {
+    //   console.error("Error sending OTP:", error.message);
+    // }
   };
 
   return (
@@ -33,14 +51,14 @@ const MyForm = () => {
       <label>
         Email:
         <input
-          type="email"
-          name="email"
-          value={formData.email}
+          type="userEmail"
+          name="userEmail"
+          value={formData.userEmail}
           onChange={handleInputChange}
         />
       </label>
       <br />
-      <button type="submit">Send OTP</button>
+      <button type="submit" >Send OTP</button>
     </form>
   );
 };
